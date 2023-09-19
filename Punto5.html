@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <input type="checkbox" id="myCheck" onclick="myFunction()" >
+    <p id="text" style="display:none">Checkbox is CHECKED!</p>
+
+<script>
+    function myFunction() {
+        let cajitaCheck = document.querySelector("#text");
+
+        /*
+        Cuando usas window.getComputedStyle(), estás utilizando una función que pertenece a window. 
+        Esta función te permite obtener información sobre cómo se están mostrando los elementos en la página, como qué colores se están usando, 
+        cuánto espacio ocupan, etc.
+        Entonces, aunque getComputedStyle es una función de window, la estás usando para obtener información sobre los elementos en la página, 
+        lo cual es responsabilidad del objeto document.
+        En resumen, window es como el marco de una pintura, y document es el lienzo donde ocurre la pintura real. 
+        getComputedStyle es como una lupa que te permite examinar los detalles de la pintura en el lienzo.
+        */
+
+        //el método getComputedStyle() obtiene los estilos del documento y los almacena en la variable como propiedades numeradas con valor el nombre del estilo
+        let estilos = window.getComputedStyle(cajitaCheck)
+
+        //Aunque aquí se selecciona un estilo en especifíco y se guarda una variable, no es necesario
+        let mostrarUocultar = estilos.display;
+
+        if (mostrarUocultar == "none") {
+            cajitaCheck.style.display = "block"
+        } else {
+            cajitaCheck.style.display = "none"
+        }
+        console.log(estilos)
+    }
+</script>
+
+</body>
+</html>
+
+
