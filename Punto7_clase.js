@@ -31,13 +31,15 @@ let caracterMssg = document.querySelector("#caracter")
     let caracterEsp = /[!#$%&/?*]/
 
     //Si este campo está fuera de foco, o fuera de contraseña, no se muestran los mensajes de correcto o incorrecto
-cajaUsuario.addEventListener("blur", function () {
-    mensaje.style.display = "none"
-})
+cajaContraseña.addEventListener("blur", function() {
+        mensaje.style.display = "none";
+    })
     //Si este campo está dentro de foco (seleccionado), SE muestran los mensajes de correcto o incorrecto
 cajaContraseña.addEventListener("focus", function () {
     mensaje.style.display = "block"
 })
+
+
 
 /*Aquí se van transformando los mensajes durante el tecleo de la clave. Mejor dicho, después de cada mero tecleo se ejecuta todo lo de la función,
 por lo que se va evaluando caracter por caracter (coincide = verde (correcto) y no coincide = rojo (incorrecto))
