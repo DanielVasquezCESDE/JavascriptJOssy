@@ -43,18 +43,32 @@ let precio = document.querySelector(".precio");
 let imagen = document.querySelector(".imagen");
 let observaciones = document.querySelector(".observaciones");
 let btnGuardar = document.querySelector(".btn-pedido");
+let bntActualizar = document.querySelector(".btn-actualizado");
 let tabla = document.querySelector(".table tbody");
+
 
 
 //agregar evento al boton
 btnGuardar.addEventListener("click", function() {
     let datos = obtenerDatos();
     guardarDatos( datos );
+    limpiarDatos();
     mostrarDatos();
 });
 
+//Muestra los datos del formulario alo recargar la página
+document.addEventListener("DOMContentLoaded", function() {
+    mostrarDatos()
+})
 
+//Evita la duplicación de los datos
+function limpiarDatos() {
 
+    let datosTabla = document.querySelector(".table tbody tr")
+        datosTabla.forEach( (fila) => {
+            fila.remove()
+        })
+}
 
 //funcion para obtener los datos
 function obtenerDatos() {
@@ -111,7 +125,7 @@ function mostrarDatos() {
             <td> ${ dato.producto } </td>
             <td> ${ dato.cliente } </td>
             <td> ${ dato.precio } </td>
-            <td> <img src="${dato.imagen}" width="50%"/> </td>
+            <td> <img src="${dato.imagen}" width="30%"/> </td>
             <td> ${ dato.observaciones } </td>
             <td>
                 <span onclick="editarPedido(${i})" class="btn btn-warning"> Editar </span>
@@ -124,3 +138,52 @@ function mostrarDatos() {
     //console.log(pedidos);
 }
 
+function eliminarPedido(posicion) {
+    let pedidos = [];
+    let datosDeLocal =  JSON.parse(localStorage.getItem(claveLocal));
+    if( datosDeLocal != null ){
+        pedidos = datosDeLocal;
+    }
+
+    let confirmar = confirm("¿Desea eliminar el pedido")
+
+    if (confirmar) {
+        //Se borra pedido con la posición y la cantidad a borrar a partir de esa posición
+        pedidos.splice(posicion, 1)
+        console.log(pedidos)
+    }
+    localStorage.setItem(claveLocal, JSON.stringify(pedidos))
+    alert("Pedido eliminado con éxito")
+    limpiarDatos()
+    mostrarDatos()
+}
+
+function editarPedido(posicion) {
+    let pedidos = [];
+    let datosDeLocal =  JSON.parse(localStorage.getItem(claveLocal));
+    if( datosDeLocal != null ){
+        pedidos = datosDeLocal;
+    }
+
+    cliente.value = pedidos[posicion].cliente;
+    producto.value = pedidos[posicion].producto;
+    precio.value = pedidos[posicion].precio;
+    observaciones.value = pedidos[posicion].observaciones;
+
+    btnGuardar.classList.toggle("d-none")
+    bntActualizar.classList.toggle("d-none")
+
+    bntActualizar.addEventListener("click", function(){
+        pedidos[posicion].cliente = cliente.value
+        pedidos[posicion].producto = producto.value
+        precio.value = pedidos[posicion].precio = precio.value
+        observaciones.value = pedidos[posicion].observaciones = observaciones.value 
+        
+        localStorage.setItem(claveLocal, JSON.stringify(pedidos))
+        alert("Order updated successfully")
+        btnGuardar.classList.toggle("d-none")
+        bntActualizar.classList.toggle("d-none")
+        limpiarDatos();
+        mostrarDatos();
+    })
+}
