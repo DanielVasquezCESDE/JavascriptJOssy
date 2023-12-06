@@ -95,3 +95,9 @@ async function Película(datos) {
 }
 
 Película(marvel)
+
+//########################################################################
+
+//FETCH
+
+//XAMPP Control Panel =  genera o simula un servidor para crear la sbases de datos
