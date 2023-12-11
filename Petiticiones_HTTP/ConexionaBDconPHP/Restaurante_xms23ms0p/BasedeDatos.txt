@@ -1,0 +1,10 @@
+create table pedidos ( 
+id int PRIMARY key AUTO_INCREMENT not null,
+plato varchar(100) not null,
+cliente varchar(100) not null,
+precio int(10), observacion text, imagen text, fecha varchar(50), estado varchar(50));
+
+INSERT INTO pedidos VALUES (null, "Pizza de People", "Lina", 27000, "Extra queso", "meni.jpg", "12/10/2023", "Pendiente"),
+(null, "Mondongo", "Danna", 27000, "Extra queso", "meni.jpg", "12/10/2023", "Pendiente"),
+(null, "Palito de queso", "Lina", 27000, "Extra queso", "meni.jpg", "12/10/2023", "Pendiente"),
+(null, "Natilla", "Daniel", 27000, "Extra buñuelo", "meni.jpg", "12/10/2023", "Pendiente");
