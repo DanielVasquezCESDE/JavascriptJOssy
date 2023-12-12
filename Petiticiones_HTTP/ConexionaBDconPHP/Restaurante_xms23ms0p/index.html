@@ -1,45 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-      crossorigin="anonymous"
-    />
-    <title>Document</title>
-  </head>
-  <body class="bg-light">
-    <h1 class="text-center">Pedidos del restaurante</h1>
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <table class="table">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Plato</th>
-                    <th>Cliente</th>
-                    <th>Precio</th>
-                    <th>Observacion</th>
-                    <th>Imagen</th>
-                    <th>Fecha</th>
-                    <th>Estado</th>
-                  </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous" />
+        <title>Document</title>
+    </head>
+    <body class="bg-dark-subtle">
+        <div class="container-fluid px-5 py-5">
+            <h1 class="text-center display-1">Pedidos del restaurante</h1>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-      crossorigin="anonymous"
-    ></script>
-    <script src="Requests.js"></script>
-  </body>
+            <div class="container-fluid mx-5 my-5">
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">PLATO</label>
+                    <input
+                        type="text"
+                        placeholder="Escribe el nombre del plato"
+                        class="plato form-control" />
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label"
+                        >CLIENTE</label
+                    >
+                    <input
+                        type="text"
+                        placeholder="Comensal"
+                        class="cliente form-control" />
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">PRECIO</label>
+                    <input
+                        type="number"
+                        placeholder="Escribe el precio del Producto"
+                        class="precio form-control" />
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label"
+                        >OBSERVACION</label
+                    >
+                    <input
+                        type="text"
+                        placeholder="Escribe el observacion del Producto"
+                        class="observacion form-control" />
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">FECHA</label>
+                    <input type="date" class="fecha form-control" />
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">IMAGEN</label>
+                    <input
+                        type="url"
+                        placeholder="url de imagen de internet"
+                        class="imagen form-control" />
+                </div>
+                <button type="button" class="btn-guardar btn btn-primary">
+                    Guardar Producto
+                </button>
+                <button type="button" class="d-none btn-actualizar btn btn-success">
+                    Actualizar Producto
+                </button>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 shadow-lg bg-dark">
+                        <table class="table table-dark">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Plato</th>
+                                    <th>Cliente</th>
+                                    <th>Precio</th>
+                                    <th>Observacion</th>
+                                    <th>Imagen</th>
+                                    <th>Fecha</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
+        <script src="Requests.js"></script>
+    </body>
 </html>
