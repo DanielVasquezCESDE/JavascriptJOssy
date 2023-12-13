@@ -3,7 +3,7 @@
 $servidor = "localhost";
 $usuario = "root";
 $passkey = "";
-$DBname = "tienda_peliculas";
+$DBname = "restarurante_ap8_webii";
 
 
 // $plato = "pizza";

@@ -10,9 +10,12 @@ let imagen = document.querySelector(".imagen");
 let guardar = document.querySelector(".btn-guardar");
 let actualizar = document.querySelector(".btn-actualizar");
 
+
 //Evento guardar al botón guardar
 guardar.addEventListener("click", () => {
-    validarDatos()
+    let pedido = validarDatos();
+    //Pasar datos a la función
+    enviarPedido(pedido, url);
 })
 
 TraerPedidos(url)
@@ -41,7 +44,8 @@ async function TraerPedidos(ruta) {
                 <td>${p.precio}</td>
                 <td>${p.observacion}</td>
                 <td>${p.imagen}</td>
-                <td>${p.fecha}</td>
+                //Hay una confusión o algo está trucado, por eso lo que está bajo fecha recibe una imagen
+                <td><img src="${p.fecha}"></img></td>
                 <td>${p.estado}</td>
                 <td>
                     <span class="btn btn-warning"> Editar </span>
@@ -64,6 +68,7 @@ function validarDatos() {
     }
     else {
         let pedido = {
+
             "plato": plato.value,
             "cliente": cliente.value,
             "precio": precio.value,
@@ -85,7 +90,7 @@ function validarDatos() {
 }
 
 //Enviar datos al BackEnd
-async function enviarPedido(pedido) {
+async function enviarPedido(pedido, ruta) {
     try {
         //Enviar datos al backend, aqupi empieza
         let datos = await fetch(ruta, {
@@ -93,7 +98,7 @@ async function enviarPedido(pedido) {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: pedido
+            body: JSON.stringify(pedido)
         });
         //Respuesta del servidor
         if (!datos.ok) {
