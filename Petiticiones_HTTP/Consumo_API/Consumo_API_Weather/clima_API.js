@@ -1,5 +1,21 @@
-let url = 'https://api.openweathermap.org/data/2.5/weather?lat=6.253306&lon=-75.569961&appid=d9a146d9b0dc98f11b8b148f91b1282f'
-fetch(url)
+// navigator.geolocation.getCurrentPosition((position)=> {
+//     let lat = position.coords.latitude
+//     let lon = position.coords.longitude
+// })
+
+const API_key = "d9a146d9b0dc98f11b8b148f91b1282f"
+
+
+let url = `https://openweathermap.org/api`
+
+//https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_key}
+
+fetch(url, {
+    method: "GET",
+    headers: {
+        "Content-Type": "application/json",
+    }
+})
     .then(res => res.json())
     .then(data => mostrarImagenes(data))
     .catch(error => console.log(error))
@@ -8,17 +24,28 @@ function mostrarImagenes(data) {
     console.log(data)
     let cuerpo_tabla = document.querySelector(".imagenes");
 
-    for (let i = 0; i <= 9; i++) {
         cuerpo_tabla.innerHTML += `
         <tr>
-           <td class="text-center">${data[i].humidity}</td>
-           <td class="text-center">${data[i].country}</td>
-           <td><img class="img-fluid" src="${data[i].name}" alt=""></img></td>
+           <td class="text-center">${data.main.feels_like} K </td>
+           <td class="text-center">${data.name}</td>
+           <td class="text-center"> ${data.timezone}</td>
        </tr>
            `
-    }
+
+    // data.forEach((peli, i) => {
+    //     result.innerHTML += `
+    //      <div class="container">
+    //                      <p> Película: ${peli.name}</p>
+    //         <p> Estudio: ${peli.Studio}</p>
+    //         <p> Lanzamiento: ${peli.Lanzamiento}</p>
+    //         <hr/>
+    //      </div>
+    //         `
+    // })
+
 
 }
+
 //https://rapidapi.com/
 
 /*
