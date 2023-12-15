@@ -2,49 +2,104 @@
 //     let lat = position.coords.latitude
 //     let lon = position.coords.longitude
 // })
+let d = document;
+let form = d.querySelector("#formulario")
+let btn_clima = d.querySelector(".get-weather")
+let ciudad_input = d.querySelector("#city");
+let pais_input = d.querySelector("#country");
+let tabla_clima = d.querySelector(".imagenes")
 
-const API_key = "d9a146d9b0dc98f11b8b148f91b1282f"
 
 
-let url = `https://openweathermap.org/api`
+//https://api.openweathermap.org/data/2.5/weather?q=Medell%C3%ADn,CO&appid=d9a146d9b0dc98f11b8b148f91b1282f
 
-//https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_key}
+btn_clima.addEventListener('click', (e) => {
+    e.preventDefault();
 
-fetch(url, {
-    method: "GET",
-    headers: {
-        "Content-Type": "application/json",
+    if (ciudad_input.value === '' || pais_input.value === '') {
+        showError('Ambos campos son obligatorios...');
+        return;
     }
+
+    activarAPI(ciudad_input.value, pais_input.value);
+    //console.log(nameCity.value);
+    //console.log(nameCountry.value);
 })
-    .then(res => res.json())
-    .then(data => mostrarImagenes(data))
-    .catch(error => console.log(error))
 
-function mostrarImagenes(data) {
-    console.log(data)
-    let cuerpo_tabla = document.querySelector(".imagenes");
+function showError(message) {
+    //console.log(message);
+    const alert = document.createElement('p');
+    alert.classList.add('alert-message');
+    alert.innerHTML = 
+    `<h3 style="color: brown;">${message}</h3>`;
 
-        cuerpo_tabla.innerHTML += `
-        <tr>
-           <td class="text-center">${data.main.feels_like} K </td>
-           <td class="text-center">${data.name}</td>
-           <td class="text-center"> ${data.timezone}</td>
-       </tr>
-           `
-
-    // data.forEach((peli, i) => {
-    //     result.innerHTML += `
-    //      <div class="container">
-    //                      <p> Película: ${peli.name}</p>
-    //         <p> Estudio: ${peli.Studio}</p>
-    //         <p> Lanzamiento: ${peli.Lanzamiento}</p>
-    //         <hr/>
-    //      </div>
-    //         `
-    // })
-
-
+    form.appendChild(alert);
+    setTimeout(() => {
+        alert.remove();
+    }, 3000);
 }
+
+
+function showWeather(data) {
+    // const {name, main:{temp, temp_min, temp_max}, weather:[arr]} = data;
+
+    // const degrees = kelvinToCentigrade(temp);
+    // const min = kelvinToCentigrade(temp_min);
+    // const max = kelvinToCentigrade(temp_max);
+
+    let temp_Celsius = parseInt(data.main.temp - 273.15);
+
+    tabla_clima.innerHTML = `
+     <tr class="display-5">
+        <td class="text-center" style = "text-shadow: 3px 3px 4px rgb(23, 21, 21);">${temp_Celsius} °C </td>
+        <td class="text-center" style = "text-shadow: 3px 3px 4px rgb(23, 21, 21);">${data.name}</td>
+        <td class="text-center" style = "text-shadow: 3px 3px 4px rgb(23, 21, 21);"> ${data.timezone}</td>
+                                    <!--	  https://openweathermap.org/img/wn/04d@2x.png -->
+    </tr>
+    `;
+
+
+    /* console.log(name);
+    console.log(temp);
+    console.log(temp_max);
+    console.log(temp_min);
+    console.log(arr.icon); */
+}
+
+
+function activarAPI(city, country) {
+    const apiUrl = "http://api.openweathermap.org/data/2.5/weather";
+    const API_key = "d9a146d9b0dc98f11b8b148f91b1282f"
+    const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+
+    const fullUrl = `${proxyUrl}${apiUrl}?q=${city},${country}&appid=${API_key}`;
+
+    // const url = `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${API_key}`;
+
+    fetch(fullUrl, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        }
+    })
+        .then(data => {
+            return data.json();
+        })
+        .then(dataJSON => {
+            if (dataJSON.cod === '404') {
+                showError('Ciudad no encontrada...');
+            } else {
+                tabla_clima.innerHTML = '';
+                showWeather(dataJSON);
+            }
+            //console.log(dataJSON);
+        })
+        .catch(error => {
+            console.log(error);
+        })
+}
+
+
 
 //https://rapidapi.com/
 
